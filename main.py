@@ -5,6 +5,7 @@ class mainApp(Tk):
     entrada = None
     tipoUnidad = None
     
+    __temperaturaAnt =''
     def __init__(self):
         Tk.__init__(self)
         self.title('Termómetro')
@@ -13,7 +14,7 @@ class mainApp(Tk):
         self.resizable(0,0)
         
         self.temperatura = StringVar(value = '')
-        self.trace('w', validateTemperature)
+        self.temperatura.trace('w', self.validateTemperature)
         self.tipoUnidad = StringVar(value = 'F')
         
 
@@ -29,7 +30,15 @@ class mainApp(Tk):
 
     def start(self):
         self.mainloop()
-                   
+        
+    def validateTemperature(self, *args):
+        nuevoValor = self.temperatura.ret()
+        
+        try:
+            float(nuevoValor)
+            self.__temperaturaAnt = nuevoValor
+        except:
+            self.temeratur.set(self.__temperaturaAnt)
 
         
 if __name__ == '__main__':
